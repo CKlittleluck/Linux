@@ -1,2 +1,2 @@
-threadtest:thread.c
-	gcc $^ -o $@ -lpthread
+threadtest:thread.cpp
+	g++ $^ -o $@ -lpthread
