@@ -36,6 +36,8 @@ class ThreadPool
             thread_count_ = thread_count;
             vec_.clear();
             vec_.resize(thread_count);
+
+            flag = false;
         }
 
         ~ThreadPool()
@@ -57,6 +59,12 @@ class ThreadPool
         void Push(Data* d)
         {
             pthread_mutex_lock(&mutex_);
+
+            if(flag == true)
+            {
+                pthread_mutex_unlock(&mutex_);
+                return;
+            }
             while(que_.size() >= capacity_)
             {
                 pthread_mutex_unlock(&mutex_);
